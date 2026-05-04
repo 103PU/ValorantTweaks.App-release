@@ -1,44 +1,55 @@
-Dùng nội dung này:
 
-# ValorantTweaks.App
+Commit README vào repo public.
 
-Public release repository for ValorantTweaks.App.
+---
 
-The source code is private. This repository only provides public release builds.
+# 8. Nên thêm release body tự động
 
-## Download
+Hiện tại release page có thể hơi trống. Bạn có thể tạo file release note tự động trong workflow.
 
-Go to the Releases page:
+Trong `release.yml`, thêm step này **trước** step `Create public GitHub Release`:
 
-https://github.com/103PU/ValorantTweaks.App-release/releases/latest
+```yaml
+- name: Create release notes
+  shell: pwsh
+  run: |
+    $tag = "${{ github.ref_name }}"
+    $downloadFile = $env:ZIP_NAME
 
-Download the file named like:
+    @"
+    # ValorantTweaks.App $tag
 
-```text
-ValorantTweaks.App-vX.X.X-win-x64.zip
-How to install
-Download the ZIP file from the latest release.
-Right-click the ZIP file and choose Extract All.
-Open the extracted folder.
-Run:
-ValorantTweaks.App.exe
+    ## Download
 
-Do not run the app directly from inside the ZIP file.
+    Download:
 
-Requirements
-Windows 10 version 1809 or newer
-Windows x64
+    - $downloadFile
 
-The app is published as self-contained, so you normally do not need to install .NET Runtime manually.
+    ## How to use
 
-Notes
+    1. Download the ZIP file.
+    2. Extract the ZIP file to a normal folder.
+    3. Open the extracted folder.
+    4. Run:
 
-If Windows shows a SmartScreen warning, choose:
+       ````text
+       ValorantTweaks.App.exe
+       ````
 
-More info → Run anyway
+    5. Do not run the app directly inside the ZIP file.
 
-This can happen because the app is not code-signed yet.
+    ## Requirements
 
-Latest release
+    - Windows 10 version 1809 or newer
+    - Windows x64
 
-https://github.com/103PU/ValorantTweaks.App-release/releases/latest
+    ## Notes
+
+    If Windows SmartScreen appears, click:
+
+    ````text
+    More info → Run anyway
+    ````
+
+    This warning may appear because the app is not code-signed yet.
+    "@ | Set-Content -Path RELEASE_NOTES.md -Encoding UTF8
