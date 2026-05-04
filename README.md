@@ -1,55 +1,55 @@
+# ValorantTweaks.App
 
-Commit README vào repo public.
+Public release repository for ValorantTweaks.App.
+
+The source code is private. This repository only provides public release builds.
 
 ---
 
-# 8. Nên thêm release body tự động
+## Download
 
-Hiện tại release page có thể hơi trống. Bạn có thể tạo file release note tự động trong workflow.
+Go to the [Releases page](https://github.com/103PU/ValorantTweaks.App-release/releases/latest) and download the file named:
 
-Trong `release.yml`, thêm step này **trước** step `Create public GitHub Release`:
+```text
+ValorantTweaks.App-vX.X.X-win-x64.zip
+```
 
-```yaml
-- name: Create release notes
-  shell: pwsh
-  run: |
-    $tag = "${{ github.ref_name }}"
-    $downloadFile = $env:ZIP_NAME
+---
 
-    @"
-    # ValorantTweaks.App $tag
+## Installation
 
-    ## Download
+1. Download the ZIP file from the latest release.
+2. Right-click the ZIP file and choose **Extract All**.
+3. Open the extracted folder.
+4. Run:
 
-    Download:
+```text
+ValorantTweaks.App.exe
+```
 
-    - $downloadFile
+> ⚠️ Do not run the app directly from inside the ZIP file.
 
-    ## How to use
+---
 
-    1. Download the ZIP file.
-    2. Extract the ZIP file to a normal folder.
-    3. Open the extracted folder.
-    4. Run:
+## Requirements
 
-       ````text
-       ValorantTweaks.App.exe
-       ````
+- Windows 10 version 1809 or newer
+- Windows x64
 
-    5. Do not run the app directly inside the ZIP file.
+> The app is published as self-contained, so you do not need to install .NET Runtime manually.
 
-    ## Requirements
+---
 
-    - Windows 10 version 1809 or newer
-    - Windows x64
+## Notes
 
-    ## Notes
+If Windows shows a SmartScreen warning, choose:
 
-    If Windows SmartScreen appears, click:
+**More info → Run anyway**
 
-    ````text
-    More info → Run anyway
-    ````
+This can happen because the app is not code-signed yet.
 
-    This warning may appear because the app is not code-signed yet.
-    "@ | Set-Content -Path RELEASE_NOTES.md -Encoding UTF8
+---
+
+## Latest Release
+
+👉 https://github.com/103PU/ValorantTweaks.App-release/releases/latest
